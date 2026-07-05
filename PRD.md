@@ -1,6 +1,6 @@
-# PRD Template
-
-이 문서는 프로젝트별 제품 요구사항 문서(`PRD.md` 또는 `PRD.mdc`)를 작성할 때 사용하는 보일러플레이트 템플릿이다.
+---
+alwaysApply: true
+---
 
 # PRD: {{PRODUCT_NAME}}
 

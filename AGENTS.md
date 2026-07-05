@@ -1,6 +1,10 @@
 # AGENTS.md
 
-이 프로젝트는 GitLab 기반 릴리즈 정보를 하나의 원본 데이터로 관리하고, CHANGELOG, QC 테스트 케이스, 릴리즈 노트, 전사 공지문을 자동 생성하는 ReleaseHub 프로토타입이다.
+이 문서는 AI 에이전트가 가장 먼저 읽는 진입점이다. `{{PROJECT_NAME}}` 플레이스홀더를 채워 그대로 사용한다.
+
+## 프로젝트 개요
+
+`{{PROJECT_NAME}}`는 `{{PROJECT_DESCRIPTION}}`를 목표로 하는 프로젝트다.
 
 ## 문서 우선순위
 
@@ -9,7 +13,7 @@
 3. `.agents/**/*.{md,mdc}`의 에이전트 작업 규칙
 4. `.rules/**/*.mdc`의 상세 개발 규칙
 5. `.skills/**/*.{md,mdc}`의 작업별 스킬 지침
-6. `PRD.mdc`의 제품 요구사항
+6. `PRD.md`의 제품 요구사항
 7. 기존 코드 컨벤션
 
 ## 공통 AI 문서 경로
@@ -19,9 +23,7 @@
 - `.agents`: AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 - `.rules`: 아키텍처, 네이밍, API, 테스트, 리뷰 등 프로젝트 개발 규칙
 - `.skills`: 특정 작업 유형별 절차와 참고 지식
-- `PRD.mdc`: 제품 요구사항과 MVP 범위
-
-보일러플레이트용 템플릿은 `.agents/AGENTS.template.md`, `.agents/PRD.template.md`를 사용한다.
+- `PRD.md`: 제품 요구사항과 MVP 범위
 
 도구별 자동 인식이 필요한 경우 `.cursor/`, `.claude/`, `.codex/` 등에는 위 공통 문서를 참조하는 얇은 연결 문서만 둔다.
 
@@ -29,12 +31,13 @@
 
 코드 작성, 리뷰, 테스트, 아키텍처 판단은 `.rules` 하위 문서를 따른다.
 
-- 아키텍처/FSD: `.rules/project-rules_architecture.mdc`
-- 기본 작업 규칙: `.rules/project-rules_working.mdc`
-- 에이전트 작업 흐름: `.rules/project-rules_agent-workflow.mdc`
-- 테스트 정책: `.rules/project-rules_testing-policy.mdc`
-- 네이밍: `.rules/project-rules_naming.mdc`
-- API 계약/응답/에러 처리: `.rules/project-rules_api-spec-contract.mdc`, `.rules/project-rules_api-response-interface.mdc`, `.rules/project-rules_api-error-handling.mdc`
+- 아키텍처/FSD·상태 관리: `.rules/architecture.mdc`
+- 기술 스택·네이밍·주석·코드 품질: `.rules/coding-standards.mdc`
+- API 계약/응답/에러 처리/MSW: `.rules/api-standards.mdc`
+- UI·디자인 토큰·공통 컴포넌트: `.rules/ui-standards.mdc`
+- 테스트 정책: `.rules/testing.mdc`
+- Git 컨벤션: `.rules/git-convention.mdc`
+- 에이전트 작업 흐름·리뷰 기준: `.rules/agent-workflow.mdc`
 
 ## 에이전트 지침
 
@@ -46,4 +49,4 @@ AI 에이전트별 공통 작업 지침은 `.agents` 하위 문서를 따른다.
 
 ## 제품 기준
 
-제품 요구사항과 MVP 범위는 `PRD.mdc`를 따른다. 구현 중 제품 방향과 코드 규칙이 충돌하면 사용자에게 확인한다.
+제품 요구사항과 MVP 범위는 `PRD.md`를 따른다. 구현 중 제품 방향과 코드 규칙이 충돌하면 사용자에게 확인한다.

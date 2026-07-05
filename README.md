@@ -24,10 +24,11 @@ AI 코딩 에이전트를 프로젝트에 투입할 때 매번 반복되는 초�
 ```text
 project-root/
   AGENTS.md
-  PRD.mdc
+  PRD.md
   .agents/
   .rules/
   .skills/
+  docs/ai-harness/
 ```
 
 도구별 자동 인식이 필요한 경우 `.cursor/`, `.claude/`, `.codex/` 같은 폴더에는 공통 문서를 참조하는 얇은 연결 문서만 둡니다.
@@ -37,18 +38,28 @@ project-root/
 ```text
 .
 ├── AGENTS.md
-├── PRD.mdc
+├── PRD.md
 ├── .agents
-│   ├── AGENTS.template.md
-│   ├── PRD.template.md
 │   ├── README.mdc
 │   └── *.md
 ├── .rules
 │   ├── README.mdc
-│   └── project-rules_*.mdc
-└── .skills
-    ├── README.mdc
-    └── */SKILL.md
+│   └── *.mdc
+├── .skills
+│   ├── README.mdc
+│   └── */SKILL.md
+└── docs
+    ├── TECH_STACK.md
+    └── ai-harness
+        ├── README.md
+        ├── PROJECT_GUIDE.md
+        ├── CURRENT_TASK.md
+        ├── NEXT_TASK_DRAFT.md
+        ├── WORK_LOG.md
+        ├── REVIEW_LOG.md
+        ├── SESSION_STATE.md
+        ├── handoff/
+        └── templates/
 ```
 
 ## 주요 문서
@@ -61,7 +72,7 @@ project-root/
 
 - 프로젝트 개요 제공
 - 문서 우선순위 정의
-- `.agents`, `.rules`, `.skills`, `PRD.mdc` 위치 안내
+- `.agents`, `.rules`, `.skills`, `PRD.md` 위치 안내
 - 도구별 설정 폴더보다 공통 문서를 우선하도록 안내
 
 ### `.agents`
@@ -99,7 +110,7 @@ AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 - 코드 리뷰
 - Figma to Code
 
-### `PRD.mdc`
+### `PRD.md`
 
 제품 요구사항 문서입니다.
 
@@ -107,12 +118,7 @@ AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 
 ## 템플릿 문서
 
-이 보일러플레이트는 새 프로젝트에 복제해서 사용할 수 있는 템플릿 문서를 포함합니다.
-
-| 파일 | 용도 |
-| --- | --- |
-| `.agents/AGENTS.template.md` | 새 프로젝트의 루트 `AGENTS.md` 생성용 템플릿 |
-| `.agents/PRD.template.md` | 새 프로젝트의 `PRD.md` 또는 `PRD.mdc` 생성용 템플릿 |
+루트의 `AGENTS.md`와 `PRD.md`가 곧 템플릿입니다. 별도 복제 없이 `{{PROJECT_NAME}}`, `{{PRODUCT_NAME}}` 등의 플레이스홀더를 프로젝트에 맞게 채워서 그대로 사용합니다.
 
 ## 사용 방법
 
@@ -125,9 +131,7 @@ GitHub에서 이 저장소를 템플릿 저장소로 설정한 뒤, `Use this te
 새 프로젝트에서 다음 문서를 프로젝트 상황에 맞게 수정합니다.
 
 - `AGENTS.md`
-- `PRD.mdc`
-- `.agents/AGENTS.template.md`
-- `.agents/PRD.template.md`
+- `PRD.md`
 
 ### 3. 규칙 선별
 
@@ -164,12 +168,12 @@ GitHub에서 이 저장소를 템플릿 저장소로 설정한 뒤, `Use this te
 3. `.agents/**/*.{md,mdc}`
 4. `.rules/**/*.mdc`
 5. `.skills/**/*.{md,mdc}`
-6. `PRD.mdc` 또는 프로젝트 PRD 문서
+6. `PRD.md` 또는 프로젝트 PRD 문서
 7. 기존 코드 컨벤션
 
 ## 권장 운영 방식
 
-- 프로젝트 시작 시 `PRD.mdc`를 먼저 작성합니다.
+- 프로젝트 시작 시 `PRD.md`를 먼저 작성합니다.
 - 구현 전 `AGENTS.md`에서 프로젝트 목적과 문서 우선순위를 정리합니다.
 - 개발 규칙은 `.rules`에 두고, 반복 작업 절차는 `.skills`에 둡니다.
 - 에이전트 역할별 지침은 `.agents`에 둡니다.
@@ -178,8 +182,8 @@ GitHub에서 이 저장소를 템플릿 저장소로 설정한 뒤, `Use this te
 
 ## 추천 사용 흐름
 
-1. `PRD.template.md`를 기반으로 프로젝트 PRD를 작성합니다.
-2. `AGENTS.template.md`를 루트 `AGENTS.md`로 복제합니다.
+1. 루트 `PRD.md`의 플레이스홀더를 채워 프로젝트 PRD를 작성합니다.
+2. 루트 `AGENTS.md`의 프로젝트 개요를 채우고 문서 우선순위를 확인합니다.
 3. 프로젝트 기술 스택과 아키텍처에 맞게 `.rules`를 조정합니다.
 4. 반복 작업에 필요한 `.skills`만 남깁니다.
 5. AI 에이전트에게 작업을 요청할 때 `AGENTS.md`를 기준 문서로 사용하게 합니다.
