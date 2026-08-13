@@ -4,6 +4,10 @@ alwaysApply: true
 
 # PRD: {{PRODUCT_NAME}}
 
+> 이 문서는 하네스 문서 중 **유일한 누적형 문서**다. 단위 작업 문서(`docs/harness/TASK_RESULT.md`, `REVIEW.md`)는 커밋 시점에 아카이브되므로, 이후에도 알아야 할 결정만 §14 설계 결정 기록으로 승격시킨다.
+>
+> 기술 스택과 검증 커맨드는 `docs/TECH_STACK.md`, 코드 규칙은 `.rules`가 SSOT다. 여기에 중복 기술하지 않는다.
+
 ## 1. 개요
 
 ### 제품명
@@ -174,6 +178,8 @@ type ExampleEntity = {
 
 ## 11. 추천 기술 스택
 
+초안 단계의 후보만 적는다. 확정된 스택과 버전, 검증 커맨드는 `docs/TECH_STACK.md`가 SSOT다.
+
 - {{TECH_STACK_1}}
 - {{TECH_STACK_2}}
 - {{TECH_STACK_3}}
@@ -203,3 +209,28 @@ type ExampleEntity = {
 - {{OPEN_ISSUE_1}}
 - {{OPEN_ISSUE_2}}
 - {{OPEN_ISSUE_3}}
+
+## 14. 설계 결정 기록 (ADR)
+
+단위 작업 문서는 커밋 후 아카이브되므로, **이후 작업에서도 알아야 할 결정만** 여기로 승격시킨다. 되돌리기 어렵거나 다음 작업의 전제가 되는 결정이 대상이다.
+
+| 일자 | 결정 | 근거 | 검토한 대안 | 관련 작업 |
+| --- | --- | --- | --- | --- |
+| {{ADR_DATE}} | {{ADR_DECISION}} | {{ADR_RATIONALE}} | {{ADR_ALTERNATIVES}} | {{ADR_TASK_ID}} |
+
+## 15. 작업 로드맵
+
+`docs/harness/TASK_PLAN.md`로 내려보낼 단위 작업의 대기열이다. 상세 내용은 `TASK_PLAN.md`가 담고, 여기에는 순서와 상태만 유지한다.
+
+| 순서 | 작업 | 이슈 코드 | 상태 |
+| --- | --- | --- | --- |
+| 1 | {{TASK_1_NAME}} | {{TASK_1_ISSUE}} | 대기 / 진행중 / 완료 |
+| 2 | {{TASK_2_NAME}} | {{TASK_2_ISSUE}} | 대기 |
+
+완료된 작업은 상태만 갱신하고, 결과는 `docs/harness/archive/{issue-code}/`를 참조한다.
+
+## 16. 변경 로그
+
+문서 전체 이력은 git이 담당한다. 여기에는 제품 방향이 바뀐 시점만 한 줄로 남긴다.
+
+- {{CHANGE_DATE}}: {{CHANGE_SUMMARY}}
