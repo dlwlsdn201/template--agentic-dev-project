@@ -53,13 +53,13 @@ Codex가 코드를 직접 작성한 작업은 Claude가 리뷰 역할을 맡아 
 
 2. [Claude] TASK_PLAN 기반 구현
    완료 조건(문서 작성 전 필수, 순서대로):
-     a. pnpm tsc --noEmit 통과
-     b. pnpm lint 통과
-     c. pnpm test 통과 (버그 수정이면 Red→Green 회귀 테스트 선작성)
-     d. 자체 E2E/수동 검증
+     a. 자체 E2E/수동 검증
    → TASK_RESULT 작성 (정형 템플릿, 검증 커맨드 출력 증거 포함)
 
 3. [Codex] 검증 리뷰 → REVIEW 작성
+     a. pnpm tsc --noEmit 통과
+     b. pnpm lint 통과
+     c. pnpm test 통과 (버그 수정이면 Red→Green 회귀 테스트 선작성)
    ★ 근거 우선순위: ① git diff(실제 코드) ② TASK_PLAN의 AC ③ TASK_RESULT
      보고서의 주장은 diff에 재현 가능한 증거가 없으면 '미검증'으로 판정
    ★ 지적사항에 심각도 필수: Blocker / Major / Minor
