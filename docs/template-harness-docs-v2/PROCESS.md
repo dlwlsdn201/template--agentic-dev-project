@@ -40,7 +40,7 @@ Codex가 코드를 직접 작성한 작업은 Claude가 리뷰 역할을 맡아 
 
 | 에이전트(세션명) | 역할 | 소유 문서 |
 |---|---|---|
-| {이슈코드}-{feature/bugfix}--project-manager | 요구사항 분석·설계·AC 정의·**최종 PASS 판정** | PRD, TASK_PLAN, REVIEW |
+| {이슈코드}-{feature/bugfix}--admin | 요구사항 분석·설계·AC 정의·**최종 PASS 판정** | PRD, TASK_PLAN, REVIEW |
 | {이슈코드}-{feature/bugfix}--dev | 구현·자체 검증·**기계적 게이트 통과**·1차 자체 리뷰 | TASK_RESULT |
 | {이슈코드}-{feature/bugfix}--dev2 | dev 세션이 해야할 작업들 중 병렬로 진행할 수 있는 단위 작업들을 진행하는 서브 구현 세션. | TASK_RESULT |
 | {이슈코드}-{feature/bugfix}--reviewer | codex-cc 플러그인 기반의 교차 검증 리뷰어. codex-cc 으로 codex에게 리뷰를 요청하고 결과를 REVIEW.md 문서에 기록. | REVIEW |
