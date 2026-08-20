@@ -54,23 +54,31 @@ Codex가 코드를 직접 작성한 작업은 Claude가 리뷰 역할을 맡아 
 2. [Claude] TASK_PLAN 기반 구현
    완료 조건(문서 작성 전 필수, 순서대로):
      a. 자체 E2E/수동 검증
+     b. 구현 중 빠른 확인은 `bash scripts/gate.sh --skip-test`(tsc+lint만, ~1분)로.
+        전체 게이트(test 포함, 5~10분)는 이 단계에서 돌리지 않는다 — 5번에서 1회만.
    → TASK_RESULT 작성 (정형 템플릿, 검증 커맨드 출력 증거 포함)
 
 3. [Codex] 검증 리뷰 → REVIEW 작성
-     a. pnpm tsc --noEmit 통과
-     b. pnpm lint 통과
-     c. pnpm test 통과 (버그 수정이면 Red→Green 회귀 테스트 선작성)
+     ※ 리뷰는 **로직·아키텍처·코딩 컨벤션 검증에 집중**한다. git diff 기반으로 FSD 레이어·
+       3단계 API 패턴·네이밍·에러 핸들링 규칙 위반, 버그 가능성을 판정.
+     ※ **매 라운드 전체 게이트(tsc·lint·test)를 재실행하지 않는다.** 게이트는 5번(최종
+       커밋 직전) 1회만 돈다 — 리뷰 라운드가 여러 번 돌아도 게이트는 마지막에 한 번뿐이다.
    ★ 근거 우선순위: ① git diff(실제 코드) ② TASK_PLAN의 AC ③ TASK_RESULT
      보고서의 주장은 diff에 재현 가능한 증거가 없으면 '미검증'으로 판정
    ★ 지적사항에 심각도 필수: Blocker / Major / Minor
 
 4. 판정 분기:
    - Blocker/Major 있음 → [Claude] 해당 항목만 수정 → TASK_RESULT 갱신 → 3으로
+                          (이 왕복 동안에도 전체 게이트 재실행 없음)
    - Minor만 있음      → PASS 처리. Minor는 REVIEW '이월' 섹션에 기록,
                           다음 단위 작업 또는 별도 정리 작업에서 일괄 반영
    - 지적 없음          → PASS
 
-5. PASS → 커밋 → TASK_RESULT·REVIEW 아카이브 이동 → 다음 단위 작업
+5. 리뷰 PASS 확정 → **최종 통합 게이트 1회**: `bash scripts/gate.sh`(전체, test 포함) 실행
+   → PASS 확인 (이 출력이 TASK_RESULT·REVIEW의 최종 검증 증거) → 커밋
+   → TASK_RESULT·REVIEW 아카이브 이동 → 다음 단위 작업
+   ※ 이 단계에서 신규 실패가 나오면 3으로 돌아가 수정 후, 수정분만 반영해 5를 다시 1회 실행한다
+     (게이트 자체를 반복하는 게 아니라 "PASS할 때까지 최종 단계에서만" 도는 구조).
 
 ★ 라운드 상한: 리뷰 3라운드 초과 시 에이전트 루프 중단, 사람이 직접 판단.
   (같은 항목이 2회 왕복하면 취향 충돌 가능성 — 즉시 사람 개입)
