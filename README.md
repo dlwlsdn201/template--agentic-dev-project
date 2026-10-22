@@ -50,21 +50,26 @@ project-root/
 │   └── */SKILL.md
 └── docs
     ├── TECH_STACK.md
-    ├── template-harness-docs-v2   # 하네스 문서 원본 템플릿 (복사용)
+    ├── template-harness-docs-v4   # 하네스 문서 원본 템플릿 (최신, 복사용)
     │   ├── PROCESS.md
+    │   ├── PROCESS_only_codex.md  # Codex 단독 운영 시 PROCESS 대체본
     │   ├── PRD.md
     │   ├── TASK_PLAN.md
     │   ├── TASK_RESULT.md
-    │   └── REVIEW.md
+    │   ├── DECISION_REQUEST.md
+    │   ├── REVIEW.md
+    │   ├── FINAL_REPORT.md        # 목표 작업 완료 후 책임자용 최종 보고서
+    │   └── scripts/               # 검증 게이트 스크립트 (PROCESS 참고)
     └── harness                    # 실제 운영 문서 (템플릿에서 복사해 사용)
         ├── PROCESS.md
         ├── TASK_PLAN.md
         ├── TASK_RESULT.md
+        ├── DECISION_REQUEST.md
         ├── REVIEW.md
         └── archive/{issue-code}/
 ```
 
-`docs/template-harness-docs-v2`는 **수정하지 않는 원본 템플릿**이고, 실제 작업은 이를 `docs/harness`로 복사해서 진행합니다. 템플릿의 `PRD.md`는 루트 `PRD.md`가 그 역할을 하므로 별도로 복사하지 않습니다.
+`docs/template-harness-docs-v4`는 **수정하지 않는 원본 템플릿**이고, 실제 작업은 이를 `docs/harness`로 복사해서 진행합니다. 템플릿의 `PRD.md`는 루트 `PRD.md`가 그 역할을 하므로 별도로 복사하지 않습니다.
 
 ## 주요 문서
 
@@ -121,7 +126,7 @@ AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 
 제품의 문제 정의, 목표, 사용자, MVP 범위, 주요 기능, 성공 기준 등을 정리합니다.
 
-설계 결정 기록(ADR)과 단위 작업 로드맵도 이 문서에서 관리합니다. 단위 작업 문서(`TASK_RESULT`, `REVIEW`)는 커밋 후 아카이브되므로, 이후에도 알아야 할 결정만 `PRD.md`로 승격시킵니다.
+설계 결정 기록(ADR)과 단위 작업 로드맵도 이 문서에서 관리합니다. 단위 작업 문서(`TASK_RESULT`, `DECISION_REQUEST`, `REVIEW`)는 커밋 후 아카이브되므로, 이후에도 알아야 할 결정만 `PRD.md`로 승격시킵니다.
 
 ### `docs/harness`
 
@@ -132,14 +137,15 @@ AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 | `PROCESS.md` | 하네스 운영 규칙 (역할 분담, 프로세스, 게이트) | 공통 |
 | `TASK_PLAN.md` | 현재 단위 작업 플랜 + 완료 기준(AC) | 계획·리뷰 에이전트 |
 | `TASK_RESULT.md` | 작업 결과 보고 + 중단 시 체크포인트 | 구현 에이전트 |
+| `DECISION_REQUEST.md` | 책임자가 직접 결정·확인해야 할 항목을 사람 말로 정리한 요청서 (승인·선택·직접 확인) | 구현 에이전트 |
 | `REVIEW.md` | 심각도 기반 리뷰 판정 | 계획·리뷰 에이전트 |
-| `archive/{issue-code}/` | 커밋 완료된 단위 작업의 결과·리뷰 보관 | 공통 |
+| `archive/{issue-code}/` | 커밋 완료된 단위 작업의 결과·결정 요청·리뷰 보관 | 공통 |
 
 운영 규칙 세 가지:
 
 - **파일 확장자**: 하네스 상태 문서는 `.md`, 규칙 문서(`.rules`)는 `.mdc`로 구분합니다. 상태 문서가 rules로 오인되어 컨텍스트에 자동 주입되는 것을 막습니다.
 - **현재 작업만 유지**: 모든 하네스 문서는 진행 중인 단위 작업 하나만 담습니다. 이력은 `archive/`와 git이 담당합니다.
-- **아카이브**: 커밋 시점에 `TASK_RESULT.md`·`REVIEW.md`를 `archive/{issue-code}/`로 옮기고 본 문서는 비웁니다.
+- **아카이브**: 커밋 시점에 `TASK_RESULT.md`·`DECISION_REQUEST.md`·`REVIEW.md`를 `archive/{issue-code}/`로 옮기고 본 문서는 비웁니다.
 
 상세 프로세스는 `docs/harness/PROCESS.md`를 참고합니다.
 
@@ -147,7 +153,7 @@ AI 에이전트의 작업 방식, 응답 방식, 검증 흐름 등 실행 지침
 
 루트의 `AGENTS.md`와 `PRD.md`가 곧 템플릿입니다. 별도 복제 없이 `{{PROJECT_NAME}}`, `{{PRODUCT_NAME}}` 등의 플레이스홀더를 프로젝트에 맞게 채워서 그대로 사용합니다.
 
-하네스 문서만 예외적으로 원본/사본을 구분합니다. `docs/template-harness-docs-v2`는 원본으로 두고, 작업용 사본을 `docs/harness`로 복사해 사용합니다. 단위 작업마다 내용이 완전히 교체되는 문서라서, 빈 템플릿 원본이 남아 있어야 다음 작업을 새로 시작할 수 있기 때문입니다.
+하네스 문서만 예외적으로 원본/사본을 구분합니다. 최신 템플릿인 `docs/template-harness-docs-v4`는 원본으로 두고, 작업용 사본을 `docs/harness`로 복사해 사용합니다. 단위 작업마다 내용이 완전히 교체되는 문서라서, 빈 템플릿 원본이 남아 있어야 다음 작업을 새로 시작할 수 있기 때문입니다.
 
 ## 사용 방법
 
@@ -176,10 +182,10 @@ GitHub에서 이 저장소를 템플릿 저장소로 설정한 뒤, `Use this te
 
 ### 5. 하네스 문서 준비
 
-`docs/template-harness-docs-v2`의 `PROCESS.md`, `TASK_PLAN.md`, `TASK_RESULT.md`, `REVIEW.md`를 `docs/harness`로 복사합니다.
+최신 템플릿 `docs/template-harness-docs-v4`의 `PROCESS.md`, `TASK_PLAN.md`, `TASK_RESULT.md`, `DECISION_REQUEST.md`, `REVIEW.md`를 `docs/harness`로 복사합니다.
 
 ```bash
-mkdir -p docs/harness && cp docs/template-harness-docs-v2/{PROCESS.md,TASK_PLAN.md,TASK_RESULT.md,REVIEW.md} docs/harness/
+mkdir -p docs/harness && cp docs/template-harness-docs-v4/{PROCESS.md,TASK_PLAN.md,TASK_RESULT.md,DECISION_REQUEST.md,REVIEW.md} docs/harness/
 ```
 
 템플릿의 `PRD.md`는 복사하지 않고, 그 안의 ADR·로드맵 섹션 구성을 루트 `PRD.md`에서 사용합니다.
@@ -224,6 +230,7 @@ mkdir -p docs/harness && cp docs/template-harness-docs-v2/{PROCESS.md,TASK_PLAN.
 - 계획·구현·검증은 서로 다른 세션(가능하면 다른 모델)이 맡아 교차 검증 구조를 유지합니다.
 - 구현 에이전트는 결과 보고 전에 타입 검사·린트·테스트를 통과시킵니다. 가장 비싼 검증 수단인 LLM 리뷰를 싼 문제에 낭비하지 않기 위해서입니다.
 - 리뷰 지적사항에는 심각도(Blocker / Major / Minor)를 붙이고, Minor만 남으면 수정 라운드를 돌리지 않고 이월합니다.
+- 작업 중간에 책임자가 직접 결정·확인해야 할 것은 `DECISION_REQUEST.md`에 사람 말로 정리해, 책임자가 에이전트 기록을 찾아 읽지 않고 바로 답할 수 있게 합니다.
 
 ## 추천 사용 흐름
 
@@ -241,13 +248,14 @@ mkdir -p docs/harness && cp docs/template-harness-docs-v2/{PROCESS.md,TASK_PLAN.
 [계획] PRD 갱신 → TASK_PLAN 작성 (완료 기준 AC 포함)
    ↓
 [구현] TASK_PLAN 기반 구현 → 타입·린트·테스트 통과 → TASK_RESULT 작성
+       (책임자 판단이 필요하면 DECISION_REQUEST도 함께 갱신)
    ↓
 [검증] git diff와 AC 기준으로 리뷰 → REVIEW 작성 (심각도 부여)
    ↓
 Blocker/Major 있음 → 해당 항목만 수정 후 재검증 (최대 3라운드)
 Minor만 있음 / 지적 없음 → PASS
    ↓
-[완료] 커밋 → TASK_RESULT·REVIEW를 archive/{issue-code}/로 이동 → 다음 작업
+[완료] 커밋 → TASK_RESULT·DECISION_REQUEST·REVIEW를 archive/{issue-code}/로 이동 → 다음 작업
 ```
 
 리뷰의 판단 근거는 `git diff`(실제 코드)가 1순위, `TASK_PLAN`의 완료 기준이 2순위, `TASK_RESULT` 보고가 3순위입니다. 결과 보고서는 자기 작업에 대한 자기 서술이라 낙관 편향이 있으므로, 보고 내용이 diff와 검증 증거로 뒷받침되지 않으면 미검증으로 판정합니다.

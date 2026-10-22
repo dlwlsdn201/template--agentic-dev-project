@@ -58,7 +58,7 @@ AI 에이전트별 공통 작업 지침은 `.agents` 하위 문서를 따른다.
 
 여러 세션·모델이 계획, 구현, 검증을 나눠 맡는다. 이전 대화 기억에 의존하지 않고 `docs/harness` 문서만으로 작업을 이어갈 수 있어야 한다. 운영 규칙 전문은 `docs/harness/PROCESS.md`를 따른다.
 
-`docs/harness`가 아직 없으면 `docs/template-harness-docs-v2`에서 `PROCESS.md`, `TASK_PLAN.md`, `TASK_RESULT.md`, `REVIEW.md`를 복사해 만든다. 템플릿 원본은 수정하지 않는다.
+`docs/harness`가 아직 없으면 최신 템플릿 `docs/template-harness-docs-v4`에서 `PROCESS.md`, `TASK_PLAN.md`, `TASK_RESULT.md`, `DECISION_REQUEST.md`, `REVIEW.md`를 복사해 만든다. 템플릿 원본은 수정하지 않는다.
 
 ### 문서 소유권
 
@@ -66,6 +66,7 @@ AI 에이전트별 공통 작업 지침은 `.agents` 하위 문서를 따른다.
 | --- | --- | --- |
 | `docs/harness/TASK_PLAN.md` | 현재 단위 작업 범위 + 완료 기준(AC) | 계획·리뷰 에이전트 |
 | `docs/harness/TASK_RESULT.md` | 작업 결과 보고 + 중단 시 체크포인트 | 구현 에이전트 |
+| `docs/harness/DECISION_REQUEST.md` | 책임자 결정·확인 요청 (승인·선택·직접 확인) | 구현 에이전트 |
 | `docs/harness/REVIEW.md` | 심각도 기반 리뷰 판정 | 계획·리뷰 에이전트 |
 | `PRD.md` | 제품 목표, ADR, 로드맵 | 계획 에이전트 |
 
@@ -87,6 +88,8 @@ AI 에이전트별 공통 작업 지침은 `.agents` 하위 문서를 따른다.
 - 미해결 사항: 발견했으나 이번 범위에서 처리하지 않은 것
 
 검증을 실행하지 않았으면 실행했다고 쓰지 않는다. 실패한 검증은 숨기지 않고 기존 오류와 신규 오류를 구분해 기록한다.
+
+책임자가 직접 결정·판단·확인해야 하는 항목이 있으면 `DECISION_REQUEST.md`를 함께 갱신하고, 이후 `TASK_RESULT.md`를 고칠 때마다 같이 고친다. 책임자가 이 문서만 보고 바로 답할 수 있게 사람 말로 쓰며, 작성 기준은 `PROCESS.md`의 "DECISION_REQUEST 작성 지침"을 따른다.
 
 ### 리뷰 에이전트 규칙
 
@@ -111,7 +114,7 @@ AI 에이전트별 공통 작업 지침은 `.agents` 하위 문서를 따른다.
 - Blocker/Major가 남아 있으면 해당 항목만 수정하고 재검증한다.
 - Minor만 남으면 PASS 처리하고 `REVIEW.md`의 이월 목록에 기록한다.
 - **리뷰 3라운드를 넘기거나 같은 항목이 두 번 왕복하면 루프를 멈추고 사용자에게 판단을 요청한다.**
-- PASS 후 커밋하면 `TASK_RESULT.md`와 `REVIEW.md`를 `docs/harness/archive/{issue-code}/`로 옮기고 본 문서는 비운다. 이후에도 알아야 할 결정은 `PRD.md`의 설계 결정 기록으로 승격시킨다.
+- PASS 후 커밋하면 `TASK_RESULT.md`, `DECISION_REQUEST.md`, `REVIEW.md`를 `docs/harness/archive/{issue-code}/`로 옮기고 본 문서는 비운다. 이후에도 알아야 할 결정은 `PRD.md`의 설계 결정 기록으로 승격시킨다.
 
 ## 제품 기준
 
